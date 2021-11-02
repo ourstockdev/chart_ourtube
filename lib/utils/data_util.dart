@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:chart_ourtube_module/utils/number_util.dart';
+import 'package:chart_ourtube/utils/number_util.dart';
 
 import '../entity/index.dart';
 

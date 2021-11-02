@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:chart_ourtube_module/chart_translations.dart';
-import 'package:chart_ourtube_module/extension/map_ext.dart';
-import 'package:chart_ourtube_module/chart_ourtube.dart';
+import 'package:chart_ourtube/chart_translations.dart';
+import 'package:chart_ourtube/extension/map_ext.dart';
+import 'package:chart_ourtube/chart_ourtube.dart';
 
 enum MainState { MA, BOLL, NONE }
 enum SecondaryState { MACD, KDJ, RSI, WR, CCI, NONE }

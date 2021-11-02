@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart'
     show Color, TextStyle, Rect, Canvas, Size, CustomPainter;
-import 'package:chart_ourtube_module/utils/date_format_util.dart';
+import 'package:chart_ourtube/utils/date_format_util.dart';
 
 import '../chart_style.dart' show ChartStyle;
 import '../entity/k_line_entity.dart';

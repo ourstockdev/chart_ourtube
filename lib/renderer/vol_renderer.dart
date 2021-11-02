@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:chart_ourtube_module/chart_ourtube.dart';
+import 'package:chart_ourtube/chart_ourtube.dart';
 
 class VolRenderer extends BaseChartRenderer<VolumeEntity> {
   late double mVolWidth;

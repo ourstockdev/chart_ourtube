@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:chart_ourtube_module/chart_translations.dart';
+import 'package:chart_ourtube/chart_translations.dart';
 
 extension ChartTranslationsMap on Map<String, ChartTranslations> {
   ChartTranslations of(BuildContext context) {
