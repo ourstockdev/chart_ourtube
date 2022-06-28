@@ -34,35 +34,35 @@ class ChartPainter extends BaseChartPainter {
   final bool is1Day;
 
   ChartPainter(
-    this.chartStyle,
-    this.chartColors, {
-    required datas,
-    required scaleX,
-    required scrollX,
-    required isLongPass,
-    required selectX,
-    mainState,
-    volHidden,
-    secondaryState,
-    this.sink,
-    bool isLine = false,
-    this.hideGrid = false,
-    this.showNowPrice = true,
-    this.bgColor,
-    this.fixedLength = 2,
-    this.maDayList = const [5, 10, 20],
-    required this.is1Day
-  })  : assert(bgColor == null || bgColor.length >= 2),
+      this.chartStyle,
+      this.chartColors, {
+        required datas,
+        required scaleX,
+        required scrollX,
+        required isLongPass,
+        required selectX,
+        mainState,
+        volHidden,
+        secondaryState,
+        this.sink,
+        bool isLine = false,
+        this.hideGrid = false,
+        this.showNowPrice = true,
+        this.bgColor,
+        this.fixedLength = 2,
+        this.maDayList = const [5, 10, 20],
+        required this.is1Day
+      })  : assert(bgColor == null || bgColor.length >= 2),
         super(chartStyle,
-            datas: datas,
-            scaleX: scaleX,
-            scrollX: scrollX,
-            isLongPress: isLongPass,
-            selectX: selectX,
-            mainState: mainState,
-            volHidden: volHidden,
-            secondaryState: secondaryState,
-            isLine: isLine) {
+          datas: datas,
+          scaleX: scaleX,
+          scrollX: scrollX,
+          isLongPress: isLongPass,
+          selectX: selectX,
+          mainState: mainState,
+          volHidden: volHidden,
+          secondaryState: secondaryState,
+          isLine: isLine) {
     selectPointPaint = Paint()
       ..isAntiAlias = true
       ..strokeWidth = 0.5
@@ -123,7 +123,7 @@ class ChartPainter extends BaseChartPainter {
       colors: bgColor ?? [Color(0xff18191d), Color(0xff18191d)],
     );
     Rect mainRect =
-        Rect.fromLTRB(0, 0, mMainRect.width, mMainRect.height + mTopPadding);
+    Rect.fromLTRB(0, 0, mMainRect.width, mMainRect.height + mTopPadding);
     canvas.drawRect(
         mainRect, mBgPaint..shader = mBgGradient.createShader(mainRect));
 
@@ -141,7 +141,7 @@ class ChartPainter extends BaseChartPainter {
           mBgPaint..shader = mBgGradient.createShader(secondaryRect));
     }
     Rect dateRect =
-        Rect.fromLTRB(0, size.height - mBottomPadding, size.width, size.height);
+    Rect.fromLTRB(0, size.height - mBottomPadding, size.width, size.height);
     canvas.drawRect(
         dateRect, mBgPaint..shader = mBgGradient.createShader(dateRect));
   }
@@ -419,9 +419,7 @@ class ChartPainter extends BaseChartPainter {
 
   TextPainter getTextPainter(text, color) {
     //TODO ??= 로 바꿀까요?
-    if (color == null) {
-      color = this.chartColors.defaultTextColor;
-    }
+    color ??= chartColors.defaultTextColor;
     TextSpan span = TextSpan(text: '$text', style: getTextStyle(color));
     TextPainter tp = TextPainter(text: span, textDirection: TextDirection.ltr);
     tp.layout();
@@ -430,11 +428,29 @@ class ChartPainter extends BaseChartPainter {
 
   /* 09.02 1일 단위로 선택했을 때, 이전 날짜와 다음 날짜의 해가 다를 때 앞쪽 날짜/뒤쪽 날짜 둘 다 (2021.12.31)과 같이 표기. */
   /* 이 라이브러리에선 8일 단위로 날짜를 표기하기 때문에, (12.24~01.08)까지는 년도를 표기하면 된다.*/
-  String getDate(int? date) {
-    if(is1Day && (DateTime.fromMillisecondsSinceEpoch(date!).month == 1) && (1<=DateTime.fromMillisecondsSinceEpoch(date).day) && (DateTime.fromMillisecondsSinceEpoch(date).day<=8)) {
-      return dateFormat(DateTime.fromMillisecondsSinceEpoch(date), [yyyy, '.', mm, '.', dd]);
-    } else if(is1Day && (DateTime.fromMillisecondsSinceEpoch(date!).month == 12) && (24<=DateTime.fromMillisecondsSinceEpoch(date).day) && (DateTime.fromMillisecondsSinceEpoch(date).day<=31)) {
-      return dateFormat(DateTime.fromMillisecondsSinceEpoch(date), [yyyy, '.', mm, '.', dd]);
+  String getDate(int date) {
+    if (is1Day && (DateTime
+        .fromMillisecondsSinceEpoch(date!)
+        .month == 1) && (1 <= DateTime
+        .fromMillisecondsSinceEpoch(date)
+        .day) && (DateTime
+        .fromMillisecondsSinceEpoch(date)
+        .day <= 8)) {
+      return dateFormat(DateTime.fromMillisecondsSinceEpoch(date),
+          [yyyy, '.', mm, '.', dd]);
+    } else if (is1Day && (DateTime
+        .fromMillisecondsSinceEpoch(date!)
+        .month == 12) && (24 <= DateTime
+        .fromMillisecondsSinceEpoch(date)
+        .day) && (DateTime
+        .fromMillisecondsSinceEpoch(date)
+        .day <= 31)) {
+      return dateFormat(DateTime.fromMillisecondsSinceEpoch(date),
+          [yyyy, '.', mm, '.', dd]);
+    }
+    else if (is1Day) {
+      return dateFormat(DateTime.fromMillisecondsSinceEpoch(date),
+          [mm, '.', dd]);
     }
 
     return dateFormat(

@@ -33,12 +33,12 @@ class MainRenderer extends BaseChartRenderer<CandleEntity> {
       this.scaleX,
       [this.maDayList = const [5, 10, 20]])
       : super(
-            chartRect: mainRect,
-            maxValue: maxValue,
-            minValue: minValue,
-            topPadding: topPadding,
-            fixedLength: fixedLength,
-            gridColor: chartColors.gridColor) {
+      chartRect: mainRect,
+      maxValue: maxValue,
+      minValue: minValue,
+      topPadding: topPadding,
+      fixedLength: fixedLength,
+      gridColor: chartColors.gridColor) {
     mCandleWidth = this.chartStyle.candleWidth;
     mCandleLineWidth = this.chartStyle.candleLineWidth;
     mLinePaint = Paint()
@@ -205,7 +205,19 @@ class MainRenderer extends BaseChartRenderer<CandleEntity> {
     var close = getY(curPoint.close);
     double r = mCandleWidth / 2;
     double lineR = mCandleLineWidth / 2;
-    if (open >= close) {
+
+    if (open == close) {
+      // 实体高度>= CandleLineWidth
+      if (open - close < mCandleLineWidth) {
+        open = close + mCandleLineWidth;
+      }
+      chartPaint.color = const Color(0xFF000000);//this.chartColors.;
+      canvas.drawRect(
+          Rect.fromLTRB(curX - r, close, curX + r, open), chartPaint);
+      canvas.drawRect(
+          Rect.fromLTRB(curX - lineR, high, curX + lineR, low), chartPaint);
+    }
+    else if (open > close) {
       // 实体高度>= CandleLineWidth
       if (open - close < mCandleLineWidth) {
         open = close + mCandleLineWidth;
@@ -235,7 +247,7 @@ class MainRenderer extends BaseChartRenderer<CandleEntity> {
       double value = (gridRows - i) * rowSpace / scaleY + minValue;
       TextSpan span = TextSpan(text: format(value), style: textStyle);
       TextPainter tp =
-          TextPainter(text: span, textDirection: TextDirection.ltr);
+      TextPainter(text: span, textDirection: TextDirection.ltr);
       tp.layout();
       if (i == 0) {
         tp.paint(canvas, Offset(0, topPadding));

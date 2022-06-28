@@ -11,12 +11,12 @@ class VolRenderer extends BaseChartRenderer<VolumeEntity> {
   VolRenderer(Rect mainRect, double maxValue, double minValue,
       double topPadding, int fixedLength, this.chartStyle, this.chartColors)
       : super(
-            chartRect: mainRect,
-            maxValue: maxValue,
-            minValue: minValue,
-            topPadding: topPadding,
-            fixedLength: fixedLength,
-            gridColor: chartColors.gridColor,) {
+    chartRect: mainRect,
+    maxValue: maxValue,
+    minValue: minValue,
+    topPadding: topPadding,
+    fixedLength: fixedLength,
+    gridColor: chartColors.gridColor,) {
     mVolWidth = chartStyle.volWidth;
   }
 
@@ -32,6 +32,8 @@ class VolRenderer extends BaseChartRenderer<VolumeEntity> {
           chartPaint
             ..color = curPoint.close > curPoint.open
                 ? this.chartColors.upColor
+                : curPoint.close == curPoint.open
+                ? const Color(0xFF000000)
                 : this.chartColors.dnColor);
     }
 
@@ -74,7 +76,7 @@ class VolRenderer extends BaseChartRenderer<VolumeEntity> {
   @override
   void drawRightText(canvas, textStyle, int gridRows) {
     TextSpan span =
-        TextSpan(text: "${NumberUtil.format(maxValue)}", style: textStyle);
+    TextSpan(text: "${NumberUtil.format(maxValue)}", style: textStyle);
     TextPainter tp = TextPainter(text: span, textDirection: TextDirection.ltr);
     tp.layout();
     tp.paint(

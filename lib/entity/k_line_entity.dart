@@ -9,7 +9,7 @@ class KLineEntity extends KEntity {
   late double amount;
   double? change;
   double? ratio;
-  int? time;
+  late int time;
 
   KLineEntity.fromCustom({
     required this.amount,
@@ -30,13 +30,13 @@ class KLineEntity extends KEntity {
     close = json['close']?.toDouble() ?? 0;
     vol = json['vol']?.toDouble() ?? 0;
     amount = json['amount']?.toDouble() ?? 0;
-    int? tempTime = json['time']?.toInt();
     //兼容火币数据
-    if (tempTime == null) {
-      tempTime = json['id']?.toInt() ?? 0;
-      tempTime = tempTime! * 1000;
+    if (json['time'] == null) {
+      final tempTime = json['id']?.toInt() ?? 0;
+      time = tempTime! * 1000;
+    } else {
+      time = json['time'].toInt();
     }
-    time = tempTime;
     ratio = json['ratio']?.toDouble() ?? 0;
     change = json['change']?.toDouble() ?? 0;
   }
